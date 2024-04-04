@@ -1,0 +1,36 @@
+{
+  "name": "@knosys/sdk",
+  "version": "0.0.0",
+  "description": "KnoSys DevKit",
+  "keywords": [
+    "knosys",
+    "qiidb",
+    "sdk"
+  ],
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "Ourai L. <ourairyu@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://knosysio.github.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knosysio/ksdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/knosysio/ksdk/issues"
+  },
+  "dependencies": {
+    "@ntks/toolbox": "0.0.6",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^3.14.0",
+    "markdown-it": "^14.1.0"
+  },
+  "scripts": {
+    "release": "npm publish --access=public"
+  }
+}
