@@ -2,7 +2,7 @@ const { existsSync } = require('fs');
 const { execSync } = require('child_process');
 const { isFunction } = require('@ntks/toolbox');
 
-const { ensureDirExists, readMeta, getGlobalConfigDirPath } = require('../core');
+const { rm, touch, ensureDirExists, readMeta, getGlobalConfigDirPath } = require('../core');
 
 const { DEFAULT_DDS_TYPE } = require('./constants');
 const { generateQiiDBSpecData, generateFileBasedSpecData } = require('./specs');
@@ -87,11 +87,11 @@ function deploySite(siteName, config, generator) {
     generator(deployDir);
 
     if (cnameDomain) {
-      exec([
-        'rm -rf CNAME',
-        'touch CNAME',
-        `echo ${cnameDomain} > CNAME`
-      ]);
+      const cnamePath = `${deployDir}/CNAME`;
+
+      rm(cnamePath);
+      touch(cnamePath);
+      exec([`echo ${cnameDomain} > CNAME`]);
     }
 
     exec([

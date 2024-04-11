@@ -2,7 +2,7 @@ const { resolve: resolvePath, join: joinPath } = require('path');
 const { existsSync } = require('fs');
 const { execSync } = require('child_process');
 
-const { ENTITY_CONTENT_NAME, isLocalRelative, ensureDirExists, copyFileDeeply } = require('../../core');
+const { ENTITY_CONTENT_NAME, touch, isLocalRelative, ensureDirExists, copyFileDeeply } = require('../../core');
 const { generateSiteData } = require('../utils');
 
 function copyJekyllTheme(srcPath, themePath) {
@@ -134,7 +134,7 @@ function generateJekyllSite(srcPath, distPath) {
     'bundle exec jekyll clean',
     `JEKYLL_ENV=production bundle exec jekyll build ${flags.join(' ')}`,
   ].join(' && '), { stdio: 'inherit', cwd: srcPath });
-  execSync('touch .nojekyll', { stdio: 'inherit', cwd: distPath });
+  touch(`${distPath}/.nojekyll`);
 }
 
 module.exports = { copyJekyllTheme, generateJekyllData, serveJekyllSite, generateJekyllSite };

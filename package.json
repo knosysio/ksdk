@@ -1,7 +1,7 @@
 {
   "name": "@knosys/sdk",
-  "version": "0.0.0",
-  "description": "KnoSys DevKit",
+  "version": "0.0.1",
+  "description": "The development kit for KnoSys ecosystem",
   "keywords": [
     "knosys",
     "qiidb",
@@ -28,7 +28,8 @@
     "@ntks/toolbox": "0.0.6",
     "gray-matter": "^4.0.3",
     "js-yaml": "^3.14.0",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "shelljs": "^0.8.5"
   },
   "scripts": {
     "release": "npm publish --access=public"

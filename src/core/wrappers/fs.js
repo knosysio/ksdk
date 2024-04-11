@@ -1,19 +1,19 @@
-const { execSync } = require('child_process');
+const shell = require('shelljs');
 
 function cp(fromPath, toPath) {
-  execSync(`cp ${fromPath} ${toPath}`, { stdio: 'inherit' });
+  shell.cp(fromPath, toPath);
 }
 
 function rm(fileOrDirPath) {
-  execSync(`rm -rf ${fileOrDirPath}`, { stdio: 'inherit' });
+  shell.rm('-rf', fileOrDirPath);
 }
 
 function mkdir(dirPath) {
-  execSync(`mkdir -p ${dirPath}`, { stdio: 'inherit' });
+  shell.mkdir('-p', dirPath);
 }
 
 function touch(filePath) {
-  execSync(`touch ${filePath}`, { stdio: 'inherit' });
+  shell.touch(filePath);
 }
 
 module.exports = { cp, rm, mkdir, touch };
