@@ -1,4 +1,4 @@
-const { resolve: resolvePath } = require('path');
+const { resolve: resolvePath, normalize: normalizePath, sep } = require('path');
 const { isFunction } = require('@ntks/toolbox');
 
 const {
@@ -47,14 +47,14 @@ function copyRefImageFile(imgSrc, dataSrc, srcDir, distDir) {
   }
 
   const resolvedImgSrc = resolvePath(srcDir, imgSrc);
-  const resolvedImgPartial = resolvedImgSrc.replace(`${dataSrc}/`, '');
-  const dirNames = resolvedImgPartial.split('/').slice(0, -1);
+  const resolvedImgPartial = resolvedImgSrc.replace(normalizePath(`${dataSrc}/`), '');
+  const dirNames = resolvedImgPartial.split(sep).slice(0, -1);
 
   if (dirNames.length > 0) {
     ensureDirExists(`${distDir}/${dirNames.join('/')}`);
   }
 
-  cp(resolvedImgSrc, `${distDir}/${resolvedImgPartial}`);
+  cp(resolvedImgSrc, normalizePath(`${distDir}/${resolvedImgPartial}`));
 }
 
 function orderDocTree(docs) {
