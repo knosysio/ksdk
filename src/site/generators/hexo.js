@@ -2,7 +2,7 @@ const { resolve: resolvePath, join: joinPath } = require('path');
 const { existsSync } = require('fs');
 const { execSync } = require('child_process');
 
-const { ENTITY_CONTENT_NAME, isLocalRelative } = require('../../core');
+const { ENTITY_CONTENT_NAME, touch, rm, isLocalRelative, scanAndSortByAsc, copyFileDeeply } = require('../../core');
 const { generateSiteData } = require('../utils');
 
 function resolveLiquidImagePath({ spec, imageDir, slug }, match, srcPath) {
@@ -94,4 +94,23 @@ function serveHexoSite(srcPath) {
   execSync(`cd ${srcPath} && hexo server ${flags.join(' ')}`, { stdio: 'inherit' });
 }
 
-module.exports = { generateHexoData, serveHexoSite };
+function generateHexoSite(srcPath, distPath) {
+  const flags = [
+    `--source ${srcPath}`,
+    `--cwd ${srcPath}`,
+    `--config ${srcPath}/_config.yml`,
+    '-b',
+    '-f',
+  ];
+  const publicPath = `${srcPath}/public`;
+
+  rm(`${srcPath}/db.json`);
+  execSync(`cd ${srcPath} && hexo generate ${flags.join(' ')}`, { stdio: 'inherit' });
+
+  scanAndSortByAsc(distPath).forEach(baseName => baseName !== '.git' && rm(`${distPath}/${baseName}`));
+  copyFileDeeply(publicPath, distPath, [], true);
+  rm(publicPath);
+  touch(`${distPath}/.nojekyll`);
+}
+
+module.exports = { generateHexoData, serveHexoSite, generateHexoSite };

@@ -80,9 +80,9 @@ function readDirDeeply(dirPath, paramArr, params, callback) {
   });
 }
 
-function copyFileDeeply(dirPath, distPath, skipNames = []) {
+function copyFileDeeply(dirPath, distPath, skipNames = [], dotFilesIncluded = false) {
   scanAndSortByAsc(dirPath).forEach(baseName => {
-    if (baseName.indexOf('.') === 0 || skipNames.includes(baseName)) {
+    if (!dotFilesIncluded && baseName.indexOf('.') === 0 || skipNames.includes(baseName)) {
       return;
     }
 

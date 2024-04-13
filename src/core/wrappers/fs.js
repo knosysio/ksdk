@@ -8,6 +8,10 @@ function rm(fileOrDirPath) {
   shell.rm('-rf', fileOrDirPath);
 }
 
+function mv(from, to) {
+  shell.mv(from, to);
+}
+
 function mkdir(dirPath) {
   shell.mkdir('-p', dirPath);
 }
@@ -16,4 +20,4 @@ function touch(filePath) {
   shell.touch(filePath);
 }
 
-module.exports = { cp, rm, mkdir, touch };
+module.exports = { cp, rm, mv, mkdir, touch };
