@@ -105,7 +105,7 @@ function generateHexoSite(srcPath, distPath) {
   const publicPath = `${srcPath}/public`;
 
   rm(`${srcPath}/db.json`);
-  execSync(`cd ${srcPath} && hexo generate ${flags.join(' ')}`, { stdio: 'inherit' });
+  execSync(`cd ${srcPath} && NODE_ENV=production hexo generate ${flags.join(' ')}`, { stdio: 'inherit' });
 
   scanAndSortByAsc(distPath).forEach(baseName => baseName !== '.git' && rm(`${distPath}/${baseName}`));
   copyFileDeeply(publicPath, distPath, [], true);
