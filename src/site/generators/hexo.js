@@ -107,7 +107,7 @@ function generateHexoSite(srcPath, distPath) {
   rm(`${srcPath}/db.json`);
   execSync(`cd ${srcPath} && NODE_ENV=production hexo generate ${flags.join(' ')}`, { stdio: 'inherit' });
 
-  scanAndSortByAsc(distPath).forEach(baseName => baseName !== '.git' && rm(`${distPath}/${baseName}`));
+  scanAndSortByAsc(distPath).forEach(baseName => !['.git', '.github'].includes(baseName) && rm(`${distPath}/${baseName}`));
   copyFileDeeply(publicPath, distPath, [], true);
   rm(publicPath);
   touch(`${distPath}/.nojekyll`);
